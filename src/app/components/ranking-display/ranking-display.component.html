@@ -1,0 +1,8 @@
+<div *ngIf="ranking" class="flex flex-column justify-content-center align-items-center">
+  <h3>Alternatives ranking ordered from best to worst:</h3>
+  <ol>
+    <li *ngFor="let item of ranking">
+      {{ item.alternative }}
+    </li>
+  </ol>
+</div>

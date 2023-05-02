@@ -1,0 +1,48 @@
+<div class="flex justify-content-center align-items-center">
+  <form [formGroup]="criteriaForm" (ngSubmit)="onSubmit()" class="flex flex-column gap-4">
+    <div formArrayName="criteria">
+      <div *ngFor="let criterion  of criteria.controls; let i = index" formGroupName="{{i}}"
+           class="flex flex-column mb-2">
+        <p class="mb-5">Criterion {{i + 1}}</p>
+        <div class="flex flex-row gap-2">
+          <span class="p-float-label">
+            <input type="text" [formControlName]="'name'" id="criterion-{{i}}-name" pInputText/>
+            <label htmlFor="criterion-{{i}}-name">Name</label>
+          </span>
+          <span class="p-float-label">
+            <p-dropdown [options]="typeOptions"
+                        [formControlName]="'type'"
+                        optionValue="value"
+                        optionLabel="name"
+                        inputId="float-label"
+                        placeholder="Type">
+          </p-dropdown>
+            <label for="float-label">Type</label>
+          </span>
+          <span class="p-float-label">
+            <p-inputNumber [formControlName]="'weight'"
+                           mode="decimal"
+                           showButtons="true"
+                           step=0.1
+                           min="0"
+                           max="1"
+                           minFractionDigits="1"
+                           allowEmpty="true"
+                           id="criterion-{{i}}-weight"/>
+            <label htmlFor="criterion-{{i}}-weight">Weight</label>
+          </span>
+          <p-button (onClick)="removeCriterion(i)"
+                    [disabled]="criteria.controls.length <= 1"
+                    icon="pi pi-minus" styleClass="p-button-primary p-button-outlined" ></p-button>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-column gap-2">
+      <p-button type="button" icon="pi pi-plus" label="Add Criterion" styleClass="p-button-sm p-button-outlined"
+                (onClick)="addCriterion()"></p-button>
+      <p-button type="submit" icon="pi pi-check" label="Confirm" [disabled]="!criteriaForm.valid"></p-button>
+    </div>
+
+  </form>
+</div>
+<p-toast></p-toast>

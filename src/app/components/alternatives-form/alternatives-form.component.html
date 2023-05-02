@@ -1,0 +1,46 @@
+<div class="flex justify-content-center align-items-center">
+  <div *ngIf="!criteria" class="flex flex-row gap-2 align-items-center">
+    <i class="pi pi-info-circle" style="font-size: 1.5rem"></i>
+    <p>Submit criteria to generate form for alternatives!</p>
+  </div>
+  <div *ngIf="alternativesForm">
+    <form [formGroup]="alternativesForm" (ngSubmit)="onSubmit()" class="flex flex-column gap-4">
+      <div formArrayName="alternatives">
+        <div *ngFor="let alternative of alternatives.controls; let i = index" formGroupName="{{i}}"
+             class="flex flex-column mb-2">
+          <p class="mb-5">Alternative {{i + 1}}</p>
+          <div class="flex flex-row gap-2">
+            <span class="p-float-label">
+              <input type="text" [formControlName]="'name'" id="alternative-{{i}}-name" pInputText/>
+              <label htmlFor="alternative-{{i}}-name">Name</label>
+            </span>
+            <ng-container *ngFor="let criterion of criteria">
+              <span class="p-float-label">
+                <p-inputNumber [formControlName]="criterion.name"
+                               mode="decimal"
+                               minFractionDigits="1"
+                               id="alternative-{{i}}-{{criterion.name}}"/>
+                <label htmlFor="alternative-{{i}}-{{criterion.name}}">{{criterion.name}}</label>
+              </span>
+            </ng-container>
+            <p-button (onClick)="removeAlternative(i)"
+                      [disabled]="alternatives.controls.length <= 1"
+                      icon="pi pi-minus" styleClass="p-button-primary p-button-outlined"></p-button>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-column gap-2">
+        <p-button type="button" icon="pi pi-plus" label="Add Alternative" styleClass="p-button-sm p-button-outlined"
+                  (onClick)="addAlternative()"></p-button>
+        <h3 class="flex justify-content-center align-items-center">Step 3 - calculate alternatives ranking:</h3>
+        <p-button [disabled]="!alternativesForm.valid || isLoading"
+                  [icon]="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
+                  class="mb-5"
+                  type="submit"
+                  label="Submit" ></p-button>
+      </div>
+    </form>
+  </div>
+
+</div>
+<p-toast></p-toast>
