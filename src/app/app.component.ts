@@ -23,8 +23,11 @@ export class AppComponent {
               private http: HttpClient,) {}
 
   public setCriteria(criteria: Criterion[]): void {
-    console.log(criteria);
     this.criteria = criteria;
+  }
+
+  public setRanking(ranking: RankingItem[]): void {
+    this.ranking = ranking;
   }
 
   public onUpload(event: any) {
