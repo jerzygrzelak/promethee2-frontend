@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {RankingItem} from "../../models/ranking-item.model";
-import {Criterion} from "../../models/criterion.model";
+import {RankingResponse} from "../../models/ranking-response.model";
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-ranking-display',
@@ -9,15 +10,24 @@ import {Criterion} from "../../models/criterion.model";
 })
 export class RankingDisplayComponent {
 
-  private _ranking: RankingItem[];
+  constructor(private sanitizer: DomSanitizer) {}
+
+  public ranking: RankingItem[];
+  public gaia: SafeResourceUrl;
+  public displayBasic: boolean;
 
   @Input()
-  public set ranking(value: RankingItem[]) {
-    this._ranking = value;
-    console.log(this._ranking);
+  public isWaiting: boolean;
+
+  @Input()
+  public set data(value: RankingResponse) {
+    this.ranking = value.alternatives;
+    // console.log(this._ranking);
+    this.gaia = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
+      + value.gaia);
   };
 
-  public get ranking(): RankingItem[] {
-    return this._ranking;
-  }
+  // public get ranking(): RankingItem[] {
+  //   return this.ranking;
+  // }
 }

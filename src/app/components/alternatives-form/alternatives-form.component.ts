@@ -4,7 +4,7 @@ import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validat
 import {MessageService} from "primeng/api";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ApiEndpoints} from "../../consts/api-endpoints";
-import {RankingItem} from "../../models/ranking-item.model";
+import {RankingResponse} from "../../models/ranking-response.model";
 
 @Component({
   selector: 'app-alternatives-form',
@@ -16,7 +16,7 @@ import {RankingItem} from "../../models/ranking-item.model";
 export class AlternativesFormComponent implements OnInit {
 
   @Output()
-  public rankingResponseEvent = new EventEmitter<RankingItem[]>();
+  public rankingResponseEvent = new EventEmitter<RankingResponse>();
 
   private _criteria: Criterion[];
 
@@ -94,7 +94,7 @@ export class AlternativesFormComponent implements OnInit {
           this.messageService.add({severity: 'success', summary: 'Success', detail: 'Response fetched!'});
           this.isLoading = false;
           console.log('Response:', v)
-          this.rankingResponseEvent.emit(v as RankingItem[]);
+          this.rankingResponseEvent.emit(v as RankingResponse);
         },
         error: (e) => {
           this.messageService.add({severity: 'error', summary: 'Error', detail: 'Something went wrong! Open console for more information.'});

@@ -1,3 +1,6 @@
+<div *ngIf="isWaiting" class="flex flex-column justify-content-center align-items-center">
+  <p-progressSpinner></p-progressSpinner>
+</div>
 <div *ngIf="ranking" class="flex flex-column justify-content-center align-items-center">
   <h3>Alternatives ranking ordered from best to worst:</h3>
   <ol>
@@ -5,4 +8,27 @@
       {{ item.alternative }}
     </li>
   </ol>
+  <div class="flex flex-row align-items-center">
+    <h3>GAIA plane</h3>
+    <p-button
+            type="button"
+            icon="pi pi-external-link"
+            label="Enlarge"
+            styleClass="p-button-text"
+            (click)="displayBasic = true">
+    </p-button>
+  </div>
+  <p-image [src]="gaia" width="750px"></p-image>
+
+  <p-galleria
+    [value]="[gaia]"
+    [(visible)]="displayBasic"
+    [containerStyle]="{ 'max-width': '1150px' }"
+    [showItemNavigators]="true"
+    [showThumbnailNavigators]="false"
+    [fullScreen]="true">
+    <ng-template pTemplate="item" let-item>
+      <img [src]="item" style="width: 100%; display: block;" />
+    </ng-template>
+  </p-galleria>
 </div>

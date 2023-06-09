@@ -1,9 +1,9 @@
 <h1 class="flex justify-content-center align-items-center">Promethee II MCDA</h1>
-<app-ranking-display [ranking]="ranking"></app-ranking-display>
+<app-ranking-display [data]="rankingResponse" [isWaiting]="loading"></app-ranking-display>
 <h3 class="flex justify-content-center align-items-center">Step 1 - provide criteria:</h3>
 <app-criteria-form (criteriaSubmitEvent)="setCriteria($event)"></app-criteria-form>
 <h3 class="flex justify-content-center align-items-center">Step 2 - provide alternatives:</h3>
-<app-alternatives-form (rankingResponseEvent)="setRanking($event)" [criteria]="criteria"></app-alternatives-form>
+<app-alternatives-form (rankingResponseEvent)="setRankingResponse($event)" [criteria]="criteria"></app-alternatives-form>
 <h3 class="flex justify-content-center align-items-center">OR upload data using .csv file</h3>
 <div class="card flex justify-content-center mb-5">
   <p-toast></p-toast>

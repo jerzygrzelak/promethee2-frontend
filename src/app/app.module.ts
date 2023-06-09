@@ -14,10 +14,13 @@ import {InputNumberModule} from "primeng/inputnumber";
 import {MessagesModule} from "primeng/messages";
 import {ToastModule} from "primeng/toast";
 import {AlternativesFormComponent} from './components/alternatives-form/alternatives-form.component';
-import {HttpClient, HttpClientModule, HttpHandler} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
 import {FileUploadModule} from "primeng/fileupload";
 import {MessageService} from "primeng/api";
-import { RankingDisplayComponent } from './components/ranking-display/ranking-display.component';
+import {RankingDisplayComponent} from './components/ranking-display/ranking-display.component';
+import {ImageModule} from "primeng/image";
+import {GalleriaModule} from "primeng/galleria";
+import {ProgressSpinnerModule} from "primeng/progressspinner";
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { RankingDisplayComponent } from './components/ranking-display/ranking-di
     MessagesModule,
     ToastModule,
     HttpClientModule,
-    FileUploadModule
+    FileUploadModule,
+    ImageModule,
+    GalleriaModule,
+    ProgressSpinnerModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]
