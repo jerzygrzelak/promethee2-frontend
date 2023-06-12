@@ -1,6 +1,6 @@
-import {Component, EventEmitter, OnInit, Output, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {MessageService} from "primeng/api";
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CriterionType} from "../../models/criterion-type.model";
 import {CriterionTypeValue} from "../../models/criterion-type-value.enum";
 import {Criterion} from "../../models/criterion.model";
@@ -19,6 +19,9 @@ export class CriteriaFormComponent implements OnInit {
 
   @Output()
   public criteriaSubmitEvent = new EventEmitter<Criterion[]>();
+
+  @Input()
+  public showWeights: boolean;
 
   public typeOptions: CriterionType[] = [
     {name: 'Gain', value: CriterionTypeValue.GAIN},
@@ -57,7 +60,7 @@ export class CriteriaFormComponent implements OnInit {
     return this.fb.group({
       name: new FormControl(`C${num}`, Validators.required),
       type: new FormControl(CriterionTypeValue.GAIN, Validators.required),
-      weight: new FormControl(1, Validators.required),
+      weight: new FormControl(1),
       preferenceFunction: new FormControl(PreferenceFunctionType.USUAL, Validators.required)
     });
   }
@@ -131,6 +134,20 @@ export class CriteriaFormComponent implements OnInit {
       this.messageService.add({severity: 'success', summary: 'Success', detail: 'Criteria form submitted!'});
     } else {
       this.messageService.add({severity: 'error', summary: 'Error', detail: 'Please fill all required fields!'});
+    }
+  }
+
+  public areDuplicatesPresent() {
+    const controls = (this.criteriaForm.controls['criteria'] as FormGroup).controls as unknown as FormGroup[];
+    const names = controls.map((control) => control.value.name);
+    const duplicateNames = names.filter((name, index) => names.indexOf(name) !== index);
+
+    if (duplicateNames.length > 0) {
+      console.log('Duplicate names found:', duplicateNames);
+      return true;
+    } else {
+      console.log('No duplicate names found');
+      return false;
     }
   }
 

@@ -19,7 +19,8 @@
           </p-dropdown>
             <label htmlFor="criterion-{{i}}-type">Type</label>
           </span>
-          <span class="p-float-label">
+          <div *ngIf="showWeights">
+            <span class="p-float-label">
             <p-inputNumber [formControlName]="'weight'"
                            class="p-inputnumber"
                            styleClass="wid50"
@@ -33,6 +34,7 @@
                            id="criterion-{{i}}-weight"/>
             <label htmlFor="criterion-{{i}}-weight">Weight</label>
           </span>
+          </div>
           <span class="p-float-label">
             <p-dropdown [options]="preferenceFunctionOptions"
                         [formControlName]="'preferenceFunction'"
@@ -75,7 +77,9 @@
     <div class="flex flex-column gap-2">
       <p-button type="button" icon="pi pi-plus" label="Add Criterion" styleClass="p-button-sm p-button-outlined"
                 (onClick)="addCriterion()"></p-button>
-      <p-button type="submit" icon="pi pi-check" label="Confirm" [disabled]="!criteriaForm.valid"></p-button>
+      <p *ngIf="areDuplicatesPresent()">Duplicate criteria name!</p>
+      <p-button type="submit" icon="pi pi-check" label="Confirm"
+                [disabled]="!criteriaForm.valid || areDuplicatesPresent()"></p-button>
     </div>
 
   </form>

@@ -8,7 +8,8 @@
 <!--</p-dropdown>-->
 <div *ngIf="parameters.dataInputMethod ==='JSON'">
   <h3 class="flex justify-content-center align-items-center mb-0">Step 2 - provide criteria:</h3>
-  <app-criteria-form (criteriaSubmitEvent)="setCriteria($event)"></app-criteria-form>
+  <app-criteria-form (criteriaSubmitEvent)="setCriteria($event)"
+                     [showWeights]="parameters.weightSelectionMethod === 'CUSTOM'"></app-criteria-form>
 </div>
 <div *ngIf="criteria && parameters.dataInputMethod ==='JSON'">
   <h3 class="flex justify-content-center align-items-center">Step 3 - provide alternatives:</h3>
@@ -29,6 +30,7 @@
                   accept=".csv"
                   maxFileSize="5000000"
                   fileLimit="2"
+                  uploadLabel="Submit"
                   (uploadHandler)="onUpload($event)">
       <ng-template pTemplate="toolbar">
         <div class="py-3">There must be one file containing <b>alternatives</b> in name <br>

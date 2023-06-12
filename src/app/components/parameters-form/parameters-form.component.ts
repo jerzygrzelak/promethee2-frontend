@@ -49,6 +49,8 @@ export class ParametersFormComponent implements OnInit {
 
   public weightSelectionMethodOptions: WeightSelectionMethod[] = [
     {name: 'Custom weights', value: WeightSelectionMethodType.CUSTOM},
+    {name: 'Entropy', value: WeightSelectionMethodType.ENTROPY},
+    {name: 'Standard deviation', value: WeightSelectionMethodType.STD_DEV}
   ];
 
   public dataInputMethodOptions: DataInputMethod[] = [

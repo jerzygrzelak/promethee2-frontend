@@ -50,41 +50,49 @@ export class AppComponent {
   public onUpload(event: any) {
     console.log(event)
     const url = ApiEndpoints.PROMETHEE_II_RANK;
+    if (event.files.length == 1) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Warning',
+        detail: '2 files necessary!'
+      });
+    } else {
 
-    const formData = new FormData();
-    console.log(this.parameters)
-    formData.append('normalization',this.parameters.normalizationMethod);
-    formData.append('weights',this.parameters.weightSelectionMethod);
-    formData.append('showGaia',this.parameters.showGaia ? 'True' : 'False');
-    for (let i = 0; i < 2; i++) {
-      const fileName = event.files[i].name.toLowerCase();
-      if (fileName.includes('alternatives')) {
-        formData.append('alternatives', event.files[i]);
-      } else if (fileName.includes('criteria')) {
-        formData.append('criteria', event.files[i]);
+      const formData = new FormData();
+      console.log(this.parameters)
+      formData.append('normalization',this.parameters.normalizationMethod);
+      formData.append('weights',this.parameters.weightSelectionMethod);
+      formData.append('showGaia',this.parameters.showGaia ? 'True' : 'False');
+      for (let i = 0; i < 2; i++) {
+        const fileName = event.files[i].name.toLowerCase();
+        if (fileName.includes('alternatives')) {
+          formData.append('alternatives', event.files[i]);
+        } else if (fileName.includes('criteria')) {
+          formData.append('criteria', event.files[i]);
+        }
       }
+      console.log(event.files[0].name);
+      console.log(event.files[1].name);
+      this.messageService.add({severity: 'info', summary: 'Success', detail: 'Files Uploaded'});
+      this.loading = true;
+      this.http.post(url, formData).subscribe({
+        next: (v) => {
+          this.messageService.add({severity: 'success', summary: 'Success', detail: 'Response fetched!'});
+          console.log('Response:', v);
+          this.loading = false;
+          this.rankingResponse = v as RankingResponse;
+        },
+        error: (e) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Something went wrong! Open console for more information.'
+          });
+          this.loading = false;
+          console.error('Error:', e);
+        }
+      });
     }
-    console.log(event.files[0].name);
-    console.log(event.files[1].name);
-    this.messageService.add({severity: 'info', summary: 'Success', detail: 'Files Uploaded'});
-    this.loading = true;
-    this.http.post(url, formData).subscribe({
-      next: (v) => {
-        this.messageService.add({severity: 'success', summary: 'Success', detail: 'Response fetched!'});
-        console.log('Response:', v);
-        this.loading = false;
-        this.rankingResponse = v as RankingResponse;
-      },
-      error: (e) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Something went wrong! Open console for more information.'
-        });
-        this.loading = false;
-        console.error('Error:', e);
-      }
-    });
   }
 
   // public isInputJson(): boolean{

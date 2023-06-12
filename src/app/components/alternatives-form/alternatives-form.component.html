@@ -34,7 +34,8 @@
         <p-button type="button" icon="pi pi-plus" label="Add Alternative" styleClass="p-button-sm p-button-outlined"
                   (onClick)="addAlternative()"></p-button>
         <h3 class="flex justify-content-center align-items-center">Step 4 - calculate alternatives ranking:</h3>
-        <p-button [disabled]="!alternativesForm.valid || isLoading"
+        <p *ngIf="areDuplicatesPresent()">Duplicate alternatives name!</p>
+        <p-button [disabled]="!alternativesForm.valid || isLoading || areDuplicatesPresent()"
                   [icon]="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
                   class="mb-5"
                   type="submit"
