@@ -9,7 +9,7 @@
         <div *ngFor="let alternative of alternatives.controls; let i = index" formGroupName="{{i}}"
              class="flex flex-column mb-2">
           <p class="mb-5">Alternative {{i + 1}}</p>
-          <div class="flex flex-row gap-2">
+          <div class="flex flex-row flex-wrap gap-2">
             <span class="p-float-label">
               <input type="text" [formControlName]="'name'" id="alternative-{{i}}-name" pInputText/>
               <label htmlFor="alternative-{{i}}-name">Name</label>
@@ -19,12 +19,13 @@
                 <p-inputNumber [formControlName]="criterion.name"
                                mode="decimal"
                                minFractionDigits="1"
+                               styleClass="w-10rem"
                                id="alternative-{{i}}-{{criterion.name}}"/>
                 <label htmlFor="alternative-{{i}}-{{criterion.name}}">{{criterion.name}}</label>
               </span>
             </ng-container>
             <p-button (onClick)="removeAlternative(i)"
-                      [disabled]="alternatives.controls.length <= 1"
+                      [disabled]="alternatives.controls.length <= 2"
                       icon="pi pi-minus" styleClass="p-button-primary p-button-outlined"></p-button>
           </div>
         </div>
@@ -32,12 +33,12 @@
       <div class="flex flex-column gap-2">
         <p-button type="button" icon="pi pi-plus" label="Add Alternative" styleClass="p-button-sm p-button-outlined"
                   (onClick)="addAlternative()"></p-button>
-        <h3 class="flex justify-content-center align-items-center">Step 3 - calculate alternatives ranking:</h3>
+        <h3 class="flex justify-content-center align-items-center">Step 4 - calculate alternatives ranking:</h3>
         <p-button [disabled]="!alternativesForm.valid || isLoading"
                   [icon]="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
                   class="mb-5"
                   type="submit"
-                  label="Submit" ></p-button>
+                  label="Submit"></p-button>
       </div>
     </form>
   </div>

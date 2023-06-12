@@ -17,10 +17,12 @@
                         inputId="float-label"
                         placeholder="Type">
           </p-dropdown>
-            <label for="float-label">Type</label>
+            <label htmlFor="criterion-{{i}}-type">Type</label>
           </span>
           <span class="p-float-label">
             <p-inputNumber [formControlName]="'weight'"
+                           class="p-inputnumber"
+                           styleClass="wid50"
                            mode="decimal"
                            showButtons="true"
                            step=0.1
@@ -31,9 +33,42 @@
                            id="criterion-{{i}}-weight"/>
             <label htmlFor="criterion-{{i}}-weight">Weight</label>
           </span>
+          <span class="p-float-label">
+            <p-dropdown [options]="preferenceFunctionOptions"
+                        [formControlName]="'preferenceFunction'"
+                        (onChange)="addParameterValue($event,i)"
+                        styleClass="w-11rem"
+                        optionValue="value"
+                        optionLabel="name"
+                        inputId="float-label"
+                        placeholder="Preference function">
+          </p-dropdown>
+            <label htmlFor="criterion-{{i}}-preference-function">Preference function</label>
+          </span>
+          <span *ngIf="criterion['controls']['threshold1']" class="p-float-label">
+            <p-inputNumber [formControlName]="'threshold1'"
+                           mode="decimal"
+                           showButtons="true"
+                           step=0.1
+                           minFractionDigits="1"
+                           allowEmpty="true"
+                           id="criterion-{{i}}-threshold1"/>
+            <label htmlFor="criterion-{{i}}-threshold1">{{threshold1}}</label>
+          </span>
+          <span *ngIf="criterion['controls']['threshold2']" class="p-float-label">
+            <p-inputNumber [formControlName]="'threshold2'"
+                           mode="decimal"
+                           showButtons="true"
+                           step=0.1
+                           minFractionDigits="1"
+                           allowEmpty="true"
+                           id="criterion-{{i}}-threshold2"/>
+            <label htmlFor="criterion-{{i}}-threshold2">{{threshold2}}</label>
+          </span>
           <p-button (onClick)="removeCriterion(i)"
-                    [disabled]="criteria.controls.length <= 1"
-                    icon="pi pi-minus" styleClass="p-button-primary p-button-outlined" ></p-button>
+                    [disabled]="criteria.controls.length <= 2"
+                    icon="pi pi-minus" styleClass="p-button-primary p-button-outlined">
+          </p-button>
         </div>
       </div>
     </div>

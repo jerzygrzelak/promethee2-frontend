@@ -7,7 +7,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ButtonModule} from "primeng/button";
 import {CriteriaFormComponent} from './components/criteria-form/criteria-form.component';
 import {MessageModule} from "primeng/message";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DropdownModule} from "primeng/dropdown";
 import {InputTextModule} from "primeng/inputtext";
 import {InputNumberModule} from "primeng/inputnumber";
@@ -21,13 +21,17 @@ import {RankingDisplayComponent} from './components/ranking-display/ranking-disp
 import {ImageModule} from "primeng/image";
 import {GalleriaModule} from "primeng/galleria";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
+import { ParametersFormComponent } from './components/parameters-form/parameters-form.component';
+import {CheckboxModule} from "primeng/checkbox";
+import {TableModule} from "primeng/table";
 
 @NgModule({
   declarations: [
     AppComponent,
     CriteriaFormComponent,
     AlternativesFormComponent,
-    RankingDisplayComponent
+    RankingDisplayComponent,
+    ParametersFormComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,10 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
     FileUploadModule,
     ImageModule,
     GalleriaModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    CheckboxModule,
+    FormsModule,
+    TableModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

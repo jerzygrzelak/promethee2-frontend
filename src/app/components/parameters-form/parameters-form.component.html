@@ -1,0 +1,40 @@
+<div class="flex justify-content-center align-items-center mt-6 mb-4">
+  <form [formGroup]="parametersForm" class="flex flex-column gap-4">
+        <div class="flex flex-row gap-2 align-items-center">
+          <span class="p-float-label">
+            <p-dropdown [options]="normalizationMethodOptions"
+                        [formControlName]="'normalizationMethod'"
+                        optionValue="value"
+                        optionLabel="name"
+                        inputId="float-label"
+                        placeholder="Normalization method">
+          </p-dropdown>
+            <label htmlFor="normalization-method">Normalization method</label>
+          </span>
+          <span class="p-float-label">
+           <p-dropdown [options]="weightSelectionMethodOptions"
+                       [formControlName]="'weightSelectionMethod'"
+                       styleClass="w-12rem"
+                       optionValue="value"
+                       optionLabel="name"
+                       inputId="float-label"
+                       placeholder="Weight selection method">
+          </p-dropdown>
+            <label htmlFor="weight-selection-method">Weight selection method</label>
+          </span>
+          <span class="p-float-label">
+          <p-dropdown [options]="dataInputMethodOptions"
+                      [formControlName]="'dataInputMethod'"
+                      styleClass="w-8rem"
+                      optionValue="value"
+                      optionLabel="name"
+                      inputId="float-label"
+                      placeholder="Data input method">
+          </p-dropdown>
+          <label htmlFor="data-input-method">Data input method</label>
+            </span>
+          <p-checkbox [binary]='true' [formControlName]="'showGaia'" value='true' inputId="showGaia"></p-checkbox>
+          <label for="showGaia">Show Gaia</label>
+      </div>
+  </form>
+</div>

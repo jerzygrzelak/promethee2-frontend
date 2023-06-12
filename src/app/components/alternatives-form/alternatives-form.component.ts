@@ -5,6 +5,7 @@ import {MessageService} from "primeng/api";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ApiEndpoints} from "../../consts/api-endpoints";
 import {RankingResponse} from "../../models/ranking-response.model";
+import {Parameters} from "../../models/parameters.model";
 
 @Component({
   selector: 'app-alternatives-form',
@@ -23,6 +24,7 @@ export class AlternativesFormComponent implements OnInit {
   @Input()
   public set criteria(value: Criterion[]) {
     this._criteria = value;
+    this.alternativesCount = 0;
     console.log(this._criteria);
     if (value) {
       this.alternativesForm = this.fb.group({
@@ -34,6 +36,11 @@ export class AlternativesFormComponent implements OnInit {
       console.log(this.alternativesForm);
     }
   };
+
+  @Input()
+  public parameters: Parameters;
+
+  public alternativesCount = 0;
 
   public get criteria(): Criterion[] {
     return this._criteria;
@@ -51,8 +58,10 @@ export class AlternativesFormComponent implements OnInit {
   }
 
   public createAlternativeForm(): FormGroup {
+    this.alternativesCount += 1;
+    console.log(this.alternativesCount)
     const formGroup = this.fb.group({
-      name: ['', Validators.required]
+      name: [`A${this.alternativesCount}`, Validators.required]
     }) as unknown as FormGroup<{ [key: string]: AbstractControl }>;
 
     for (let i = 0; i < this.criteria.length; i++) {
@@ -84,6 +93,10 @@ export class AlternativesFormComponent implements OnInit {
 
     if (this.alternativesForm.valid) {
       const payload = {
+        parameters: {
+          normalization: this.parameters.normalizationMethod,
+          weights: this.parameters.weightSelectionMethod,
+          showGaia: this.parameters.showGaia},
         criteria: this.criteria,
         alternatives: this.alternativesForm.controls['alternatives'].value
       };

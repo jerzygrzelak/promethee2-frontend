@@ -1,20 +1,41 @@
 <h1 class="flex justify-content-center align-items-center">Promethee II MCDA</h1>
-<app-ranking-display [data]="rankingResponse" [isWaiting]="loading"></app-ranking-display>
-<h3 class="flex justify-content-center align-items-center">Step 1 - provide criteria:</h3>
-<app-criteria-form (criteriaSubmitEvent)="setCriteria($event)"></app-criteria-form>
-<h3 class="flex justify-content-center align-items-center">Step 2 - provide alternatives:</h3>
-<app-alternatives-form (rankingResponseEvent)="setRankingResponse($event)" [criteria]="criteria"></app-alternatives-form>
-<h3 class="flex justify-content-center align-items-center">OR upload data using .csv file</h3>
-<div class="card flex justify-content-center mb-5">
-  <p-toast></p-toast>
-  <p-fileUpload class="flex justify-content-center align-items-center"
-                mode="advanced"
-                multiple="true"
-                chooseLabel="Choose .csv files"
-                url="http://192.168.1.38:5000/api/v1/promethee-ii-rank"
-                customUpload="true"
-                accept=".csv"
-                maxFileSize="5000000"
-                (uploadHandler)="onUpload($event)">
-  </p-fileUpload>
+<app-ranking-display *ngIf="rankingResponse" [data]="rankingResponse" [isWaiting]="loading"></app-ranking-display>
+<h3 class="flex justify-content-center align-items-center">Step 1 - choose parameters:</h3>
+<app-parameters-form (parametersChangeEvent)="setParameters($event)"></app-parameters-form>
+<!--<p-dropdown [options]="dataInputMethodOptions"-->
+<!--            [(ngModel)]="dataInputMethod"-->
+<!--            optionLabel="name">-->
+<!--</p-dropdown>-->
+<div *ngIf="parameters.dataInputMethod ==='JSON'">
+  <h3 class="flex justify-content-center align-items-center mb-0">Step 2 - provide criteria:</h3>
+  <app-criteria-form (criteriaSubmitEvent)="setCriteria($event)"></app-criteria-form>
 </div>
+<div *ngIf="criteria && parameters.dataInputMethod ==='JSON'">
+  <h3 class="flex justify-content-center align-items-center">Step 3 - provide alternatives:</h3>
+  <app-alternatives-form (rankingResponseEvent)="setRankingResponse($event)"
+                         [criteria]="criteria"
+                         [parameters]="parameters">
+  </app-alternatives-form>
+</div>
+<div *ngIf="parameters.dataInputMethod ==='CSV'">
+  <h3 class="flex justify-content-center align-items-center">Step 2 -  upload data using .csv file</h3>
+  <div class="card flex justify-content-center mb-5">
+    <p-fileUpload class="flex justify-content-center align-items-center"
+                  mode="advanced"
+                  multiple="true"
+                  chooseLabel="Choose .csv files"
+                  url="http://192.168.1.38:5000/api/v1/promethee-ii-rank"
+                  customUpload="true"
+                  accept=".csv"
+                  maxFileSize="5000000"
+                  fileLimit="2"
+                  (uploadHandler)="onUpload($event)">
+      <ng-template pTemplate="toolbar">
+        <div class="py-3">There must be one file containing <b>alternatives</b> in name <br>
+                          and one containing <b>criteria</b> in name.
+        </div>
+      </ng-template>
+    </p-fileUpload>
+  </div>
+</div>
+<p-toast></p-toast>
