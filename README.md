@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.7.
 
+## To build a Docker image and run the container you need to run following commands:
+1. ```docker build -t promethee2-frontend .```
+2. ```docker run -d -it -p 80:80/tcp  promethee2-frontend:latest  ```
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

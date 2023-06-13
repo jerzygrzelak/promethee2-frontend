@@ -19,7 +19,6 @@ export class AppComponent {
 
   public criteria: Criterion[];
   public parameters: Parameters;
-
   public rankingResponse: RankingResponse;
   public isLoading: boolean = false;
 
@@ -47,7 +46,7 @@ export class AppComponent {
     this.parameters = parameters;
   }
 
-  public onUpload(event: any) {
+  public onUpload(event: any, uploader:any) {
     console.log(event)
     const url = ApiEndpoints.PROMETHEE_II_RANK;
     if (event.files.length == 1) {
@@ -80,6 +79,7 @@ export class AppComponent {
           console.log('Response:', v);
           this.isLoading = false;
           this.rankingResponse = v as RankingResponse;
+
         },
         error: (e) => {
           this.messageService.add({
@@ -89,9 +89,11 @@ export class AppComponent {
           });
           this.isLoading = false;
           console.error('Error:', e);
+
         }
       });
     }
+    uploader.clear()
   }
 
   // public isInputJson(): boolean{

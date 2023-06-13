@@ -35,8 +35,8 @@
                   maxFileSize="5000000"
                   fileLimit="2"
                   uploadLabel="Submit"
-                  [uploadIcon]= "isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-upload'"
-                  (uploadHandler)="onUpload($event)">
+                  #upload
+                  (uploadHandler)="onUpload($event, upload)">
       <ng-template pTemplate="toolbar">
         <div class="py-3">There must be one file containing <b>alternatives</b> in name <br>
                           and one containing <b>criteria</b> in name.
