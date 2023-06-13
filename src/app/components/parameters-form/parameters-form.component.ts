@@ -43,7 +43,6 @@ export class ParametersFormComponent implements OnInit {
     {name: 'Min-Max', value: NormalizationMethodType.MIN_MAX},
     {name: 'Maximum', value: NormalizationMethodType.MAX},
     {name: 'Sum', value: NormalizationMethodType.SUM},
-    {name: 'Sum\'s square root', value: NormalizationMethodType.SQRT_SUM},
     {name: 'Logarithmic', value: NormalizationMethodType.LOG},
   ];
 
