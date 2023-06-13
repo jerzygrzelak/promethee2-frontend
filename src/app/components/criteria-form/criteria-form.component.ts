@@ -142,13 +142,7 @@ export class CriteriaFormComponent implements OnInit {
     const names = controls.map((control) => control.value.name);
     const duplicateNames = names.filter((name, index) => names.indexOf(name) !== index);
 
-    if (duplicateNames.length > 0) {
-      console.log('Duplicate names found:', duplicateNames);
-      return true;
-    } else {
-      console.log('No duplicate names found');
-      return false;
-    }
+    return duplicateNames.length > 0;
   }
 
   public printCriterion(criterion: any) {

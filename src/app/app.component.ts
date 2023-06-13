@@ -21,7 +21,7 @@ export class AppComponent {
   public parameters: Parameters;
 
   public rankingResponse: RankingResponse;
-  public loading = false;
+  public isLoading: boolean = false;
 
   public dataInputMethodOptions: DataInputMethod[] = [
     {name: 'JSON', value: DataInputMethodType.JSON},
@@ -31,7 +31,7 @@ export class AppComponent {
   public dataInputMethod: DataInputMethodType;
 
   constructor(private messageService: MessageService,
-              private http: HttpClient,) {
+              private http: HttpClient) {
   }
 
   public setCriteria(criteria: Criterion[]): void {
@@ -57,7 +57,6 @@ export class AppComponent {
         detail: '2 files necessary!'
       });
     } else {
-
       const formData = new FormData();
       console.log(this.parameters)
       formData.append('normalization',this.parameters.normalizationMethod);
@@ -74,12 +73,12 @@ export class AppComponent {
       console.log(event.files[0].name);
       console.log(event.files[1].name);
       this.messageService.add({severity: 'info', summary: 'Success', detail: 'Files Uploaded'});
-      this.loading = true;
+      this.isLoading = true;
       this.http.post(url, formData).subscribe({
         next: (v) => {
           this.messageService.add({severity: 'success', summary: 'Success', detail: 'Response fetched!'});
           console.log('Response:', v);
-          this.loading = false;
+          this.isLoading = false;
           this.rankingResponse = v as RankingResponse;
         },
         error: (e) => {
@@ -88,7 +87,7 @@ export class AppComponent {
             summary: 'Error',
             detail: 'Something went wrong! Open console for more information.'
           });
-          this.loading = false;
+          this.isLoading = false;
           console.error('Error:', e);
         }
       });

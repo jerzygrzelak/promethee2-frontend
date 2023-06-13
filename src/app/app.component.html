@@ -1,5 +1,9 @@
 <h1 class="flex justify-content-center align-items-center">Promethee II MCDA</h1>
-<app-ranking-display *ngIf="rankingResponse" [data]="rankingResponse" [isWaiting]="loading"></app-ranking-display>
+<div *ngIf="isLoading" class="flex flex-column justify-content-center align-items-center">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+<app-ranking-display *ngIf="rankingResponse"
+                     [data]="rankingResponse"></app-ranking-display>
 <h3 class="flex justify-content-center align-items-center">Step 1 - choose parameters:</h3>
 <app-parameters-form (parametersChangeEvent)="setParameters($event)"></app-parameters-form>
 <!--<p-dropdown [options]="dataInputMethodOptions"-->
@@ -31,6 +35,7 @@
                   maxFileSize="5000000"
                   fileLimit="2"
                   uploadLabel="Submit"
+                  [uploadIcon]= "isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-upload'"
                   (uploadHandler)="onUpload($event)">
       <ng-template pTemplate="toolbar">
         <div class="py-3">There must be one file containing <b>alternatives</b> in name <br>

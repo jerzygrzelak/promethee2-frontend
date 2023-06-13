@@ -9,8 +9,8 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
   styleUrls: ['./ranking-display.component.scss']
 })
 export class RankingDisplayComponent {
-
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(private sanitizer: DomSanitizer) {
+  }
 
   public ranking: RankingItem[];
   public gaia: SafeResourceUrl;
@@ -18,12 +18,11 @@ export class RankingDisplayComponent {
   public displayBasic: boolean;
 
   @Input()
-  public isWaiting: boolean;
+  public isLoading: boolean;
 
   @Input()
   public set data(value: RankingResponse) {
     this.ranking = value.alternatives;
-    // console.log(this._ranking);
     this.gaiaValue = value.gaia;
     this.gaia = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
       + value.gaia);
