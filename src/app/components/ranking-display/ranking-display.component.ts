@@ -14,6 +14,7 @@ export class RankingDisplayComponent {
 
   public ranking: RankingItem[];
   public gaia: SafeResourceUrl;
+  public gaiaValue: string;
   public displayBasic: boolean;
 
   @Input()
@@ -23,6 +24,7 @@ export class RankingDisplayComponent {
   public set data(value: RankingResponse) {
     this.ranking = value.alternatives;
     // console.log(this._ranking);
+    this.gaiaValue = value.gaia;
     this.gaia = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
       + value.gaia);
   };
