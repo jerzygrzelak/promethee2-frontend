@@ -1,8 +1,8 @@
 # Promethee2Frontend
 ## To build a Docker image and run the container you need to do the following steps:
 1. Enter project directory.
-2. ```docker build -t promethee2-frontend .``` to build the image.
-3. ```docker run -d -it -p 80:80/tcp  promethee2-frontend:latest  ``` to build and run the container.
+2. Run ```docker build -t promethee2-frontend .``` to build the image.
+3. Run ```docker run -d -it -p 80:80/tcp  promethee2-frontend:latest  ``` to build and run the container.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.7.
 
